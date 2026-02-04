@@ -1,1 +1,11 @@
-{}
+{
+  "unknown": {
+    "name": null,
+    "idno": null,
+    "vat_code": null,
+    "iban": null,
+    "bank": null,
+    "address": null,
+    "patterns": {}
+  }
+}

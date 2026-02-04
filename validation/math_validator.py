@@ -16,10 +16,16 @@ class MathValidator:
     def validate_items_sum(items: List[dict], totals: dict) -> Tuple[list, list]:
         issues, warnings = [], []
 
-        items_total = sum(
-            [MathValidator._to_dec(i.get("total_amount")) or Decimal("0")]
-            for i in items
-        )
+        items_total = Decimal("0")
+        
+        for i in items:
+            val = i.get("total_amount") 
+            
+            if isinstance(val, list):
+                val = val[0] if val else 0
+                
+            dec_val = MathValidator._to_dec(val) or Decimal("0")
+            items_total += dec_val 
 
         doc_total = MathValidator._to_dec(totals.get("total_amount"))
 

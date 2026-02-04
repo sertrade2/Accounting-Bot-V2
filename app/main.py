@@ -20,6 +20,9 @@ from core.orchestrator import AccountingOrchestrator
 # CONFIG
 # -----------------------------------------
 
+print("MAIN FILE LOADED")
+
+
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "YOUR_TOKEN_HERE")
 DOWNLOAD_DIR = Path("downloads")
 DOWNLOAD_DIR.mkdir(exist_ok=True)
@@ -150,5 +153,34 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     except Exception as e:
 
-        logger.excepti
+        logger.exception("Processing error")
+
+# -----------------------------------------
+# BOT STARTUP
+# -----------------------------------------
+
+def run_bot():
+
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    doc_handler = MessageHandler(
+        filters.Document.ALL | filters.PHOTO,
+        handle_document
+    )
+
+    app.add_handler(doc_handler)
+
+    logger.info("Telegram Accounting AI Bot Started")
+
+    app.run_polling()
+
+
+# -----------------------------------------
+# ENTRY POINT
+# -----------------------------------------
+
+if __name__ == "__main__":
+    print("BOT STARTING...")
+    run_bot()
+
 
