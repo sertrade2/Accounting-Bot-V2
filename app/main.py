@@ -13,7 +13,10 @@ from telegram.ext import (
     ContextTypes
 )
 
-from core.orchestrator import AccountingOrchestrator
+from pipeline.processor import DocumentProcessor
+from ocr.manager import OCRManager
+from ocr.tesseract import TesseractOCR
+
 
 
 # -----------------------------------------
